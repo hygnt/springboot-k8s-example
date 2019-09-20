@@ -17,7 +17,7 @@ def label = "mypod-${UUID.randomUUID().toString()}"
 podTemplate(label: label, cloud: 'kubernetes', inheritFrom: 'default', containers: [
             containerTemplate(name: 'maven', image: 'maven:3.6.0-jdk-8', command: 'cat', ttyEnabled: true),
             containerTemplate(name: 'docker', image: 'reg.harbor.io/k8s/jsdk:v1', command: 'cat', ttyEnabled: true),
-            containerTemplate(name: 'helm', image: 'lachlanevenson/k8s-helm:v2.9.1', command: 'cat', ttyEnabled: true, envVars: [
+            containerTemplate(name: 'helm', image: 'lachlanevenson/k8s-helm:v2.14.3', command: 'cat', ttyEnabled: true, envVars: [
                 envVar(key: 'KUBECONFIG', value: '/root/.kube/config')])
 	    ],
             volumes: [
@@ -67,15 +67,15 @@ podTemplate(label: label, cloud: 'kubernetes', inheritFrom: 'default', container
             }
 
             stage('docker-build') {
-                sh "docker build . -t ${params.REGISTRY_URL}/lusyoe/k8s-example:${shortGitCommit}"
+                sh "docker build . -t ${params.REGISTRY_URL}/hygnt/k8s-example:${shortGitCommit}"
             }
 
             stage('docker-push') {
-                sh "docker push ${params.REGISTRY_URL}/lusyoe/k8s-example:${shortGitCommit}"
+                sh "docker push ${params.REGISTRY_URL}/hygnt/k8s-example:${shortGitCommit}"
             }
 
             stage('docker-remove') {
-                sh "docker rmi ${params.REGISTRY_URL}/lusyoe/k8s-example:${shortGitCommit}"
+                sh "docker rmi ${params.REGISTRY_URL}/hygnt/k8s-example:${shortGitCommit}"
             }
         }
 

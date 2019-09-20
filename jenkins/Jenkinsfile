@@ -66,15 +66,15 @@ podTemplate(label: label, cloud: 'kubernetes', inheritFrom: 'default', container
             }
 
             stage('docker-build') {
-                sh "docker build . -t ${params.REGISTRY_URL}/lusyoe/k8s-example:${shortGitCommit}"
+                sh "docker build . -t ${params.REGISTRY_URL}/hygnt/k8s-example:${shortGitCommit}"
             }
 
             stage('docker-push') {
-                sh "docker push ${params.REGISTRY_URL}/lusyoe/k8s-example:${shortGitCommit}"
+                sh "docker push ${params.REGISTRY_URL}/hygnt/k8s-example:${shortGitCommit}"
             }
 
             stage('docker-remove') {
-                sh "docker rmi ${params.REGISTRY_URL}/lusyoe/k8s-example:${shortGitCommit}"
+                sh "docker rmi ${params.REGISTRY_URL}/hygnt/k8s-example:${shortGitCommit}"
             }
 
         }
